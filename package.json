@@ -1,7 +1,7 @@
 {
-  "name": "portal",
+  "name": "<%= appName %>",
   "version": "1.0.0",
-  "description": "统一平台入口工程",
+  "description": "<%= description %>",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --quiet --no-inline-config  src/",
