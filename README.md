@@ -18,51 +18,6 @@
 **
 ## 文件目录说明
 
-config //webpack相关配置，一般不需要更改
-┣ webpack.base.js //项目公共配置
-┣ webpack.dev.js//项目本地配置
-┣ webpack.pro.js //项目打包配置
-dll //公共依赖包提取文件目录，与OSS静态资源对应，并把公共文件映射index.html上了，json文件用于配置
-┣ common.dll.js //提取包里包含axios，moment
-┣ react.dll.js //包含"react", "react-dom", "react-router-dom"
-┣ react_redux.dll.js //包含"redux", "react-redux"
-src //项目主要开发目录
-┣ assets //静态资源目录，「该资源里.less不会被hash值编译，处理全局覆盖css特别方便」
-┣ components //自定义组件库
- ┣ plugins //自定义插件库
- ┣ page //自定义路由页面组件
- ┣ redux //redux配置目录
- ┣ router //路由配置目录
-┣ index.html  //模板文件
-┣ main.js  //微应用引导目标
-┣ root.component.js  //入口组件
-app.config.js //项目简单配置目录，详情请看下面配置说明
-.eslintrc.js //项目代码格式化规范
-package.json //依赖包配置项
-
-## 本地开发说明
-#### 整个项目开发，运行 npm run dev 
-微应用的外框架和其他微应用模块是其他平台的，所以需要本地拉取注册入口portal的仓库，仓库地址：[git@git.253.com:bmp/FD/portal.git](http://git.253.com/bmp/FD/portal)
-入口项目portal的端口为：8888，修改入口文件的project.config.js，把自己的开发应用写到数组里就好
-
-```json
-module.exports = {
-  projects: [
-    {
-      name: "main", //框架主模块
-      path: "/", //模块url前缀
-      entry: "/main/js/main.js", //模块渲染出口文件
-      store: "/main/js/store.js", //模块对外接口
-      layout: true //判断是不是外框架
-    },
-    {
-      name: "app1", //模块名称
-      path: "/app1", //模块url前缀
-      entry: "http://localhost:9001/js/main.js", //模块渲染出口文件
-      store: "http://localhost:9001/js/store.js" //模块对外接
-    }
-  ]
-};
 ```
 
 - 先运行入口项目`npm run dev`
