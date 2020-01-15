@@ -25,8 +25,7 @@ const webpackConfigProd = {
           priority: -10
         },
         default: {
-          chunks: "all",
-          maxSize: 300 * 1024,
+          maxSize: 800 * 1024,
           minChunks: 2,
           priority: -20,
           reuseExistingChunk: true
