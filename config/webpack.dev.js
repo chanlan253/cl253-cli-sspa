@@ -39,7 +39,7 @@ const webpackConfigDev = {
       "Access-Control-Allow-Origin": "*"
     },
     hot: true,
-    noInfo: true,
+    noInfo: false,
     overlay: {
       errors: true
     },

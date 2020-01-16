@@ -7,6 +7,7 @@ import { ConfigProvider } from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import moment from "moment";
 import "moment/locale/zh-cn";
+import Layout from "pages/layout";
 moment.locale("zh-cn");
 
 class RootComponent extends Component {
@@ -24,13 +25,15 @@ class RootComponent extends Component {
         <Provider store={this.state.store}>
           <Suspense fallback={<PageLoad />}>
             <BrowserRouter basename={`/layout/${process.env.baseName}`}>
-              <Switch>
-                {routers.map(item => {
-                  return (
-                    <Route component={item.component} path={item.path} key={item.name} exact={item.exact || false} />
-                  );
-                })}
-              </Switch>
+              <Layout>
+                <Switch>
+                  {routers.map(item => {
+                    return (
+                      <Route component={item.component} path={item.path} key={item.name} exact={item.exact || false} />
+                    );
+                  })}
+                </Switch>
+              </Layout>
             </BrowserRouter>
           </Suspense>
         </Provider>
