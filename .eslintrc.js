@@ -45,7 +45,7 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
-    "no-case-declarations": "error",
+    "no-case-declarations": "off",
     "import/newline-after-import": 0,
     "no-unreachable": 1, //不能有无法执行的代码
     "prettier/prettier": ["error",{
