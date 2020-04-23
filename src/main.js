@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import singleSpaReact from "single-spa-react";
 import RootComponent from "./root.component";
 
-if (process.env.NODE_BOOT === "own") {
+if (!window.singleSpaNavigate) {
   const { store } = require("./redux");
   ReactDOM.render(<RootComponent store={store} />, document.getElementById("childApp"));
 }
