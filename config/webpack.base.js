@@ -181,20 +181,20 @@ module.exports = {
       verbose: false
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("../dll/common_manifest.json"),
-      context: "static.253.com"
+      manifest: require("./dll/react_manifest"),
+      context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("../dll/react_manifest.json"),
-      context: "static.253.com"
+      manifest: require("./dll/react_redux_manifest"),
+      context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("../dll/react_redux_manifest.json"),
-      context: "static.253.com"
+      manifest: require("./dll/common_manifest"),
+      context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("../dll/sspa_manifest.json"),
-      context: "static.253.com"
+      manifest: require("./dll/sspa_manifest.json"),
+      context: "www.253.com"
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
