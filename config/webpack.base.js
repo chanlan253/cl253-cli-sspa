@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const AppConfig = require("../app.config");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require("happypack");
+const StatsPlugin = require("stats-webpack-plugin");
 const os = require("os");
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const isDev = process.env.NODE_ENV === "development";
@@ -17,7 +18,7 @@ module.exports = {
   },
   output: {
     path: resolve(`../dist`),
-    filename: isDev ? "js/[name].js" : "js/[name].js",
+    filename: isDev ? "js/[name].js" : "js/[name].[contenthash:8].js",
     chunkFilename: isDev ? "js/[id].js" : "js/[id].[contenthash:8].js",
     publicPath: isDev ? `http://localhost:${AppConfig.port}/` : `/${AppConfig.publicPath}/`,
     libraryTarget: "umd",
@@ -112,8 +113,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: isDev ? "css/[name].css" : "css/[name].css",
-      chunkFilename: isDev ? "css/[id].css" : "css/[contenthash].[id].css"
+      filename: isDev ? "css/[name].css" : "css/[name].[contenthash].css",
+      chunkFilename: isDev ? "css/[id].css" : "css/[id].[contenthash].css"
     }),
     // 定义环境变量为开发环境
     new webpack.DefinePlugin({
@@ -180,16 +181,29 @@ module.exports = {
       threadPool: happyThreadPool,
       verbose: false
     }),
+    new StatsPlugin("manifest.json", {
+      chunkModules: false,
+      entrypoints: true,
+      logging: false,
+      source: false,
+      chunks: false,
+      modules: false,
+      assets: false,
+      children: false,
+      chunkGroups: false,
+      outputPath: false,
+      exclude: [/node_modules/]
+    }),
     new webpack.DllReferencePlugin({
-      manifest: require("./dll/react_manifest"),
+      manifest: require("./dll/common_manifest.json"),
       context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("./dll/react_redux_manifest"),
+      manifest: require("./dll/react_manifest.json"),
       context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({
-      manifest: require("./dll/common_manifest"),
+      manifest: require("./dll/react_redux_manifest.json"),
       context: "www.253.com"
     }),
     new webpack.DllReferencePlugin({

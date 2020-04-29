@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const AppConfig = require("../app.config");
 const merge = require("webpack-merge");
@@ -16,16 +17,17 @@ const webpackConfigProd = {
     splitChunks: {
       chunks: "async",
       name: true,
-      minChunks: 2,
+      minChunks: 1,
       cacheGroups: {
         vendors: {
-          maxSize: 500 * 1024,
+          chunks: "all",
+          maxSize: 100 * 1024,
           minChunks: 1,
           test: /[\\/]node_modules[\\/]/,
           priority: -10
         },
         default: {
-          maxSize: 800 * 1024,
+          maxSize: 200 * 1024,
           minChunks: 2,
           priority: -20,
           reuseExistingChunk: true
