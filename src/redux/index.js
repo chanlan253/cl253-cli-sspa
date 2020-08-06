@@ -1,13 +1,15 @@
+//redux
 import { createStore } from "redux";
-const reducers = (state = { count: 0 }, action) => {
+const defaultValue = {
+  userInfo: {},
+};
+const reducers = (state = defaultValue, action) => {
   switch (action.type) {
-    case "SET_LOGIN_USER22":
+    case "SET_LOGIN_USER":
       return { ...state, ...{ userInfo: action.userInfo } };
-    case "increase2":
-      return { ...state, ...{ count: state.count + 1 } };
     default:
-      return { ...state, ...{ userInfo: {} } };
+      return state;
   }
 };
 
-export const store = createStore(reducers);
+export default createStore(reducers);

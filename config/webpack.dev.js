@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const merge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const AppConfig = require("../app.config");
 const webpackConfigBase = require("./webpack.base");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -16,41 +16,37 @@ const webpackConfigDev = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       hash: true, //防止相同缓存
+      inject: true,
       filename: "index.html",
       templateParameters: {
         title: AppConfig.title || "",
-        dlls: [
-          "https://static.253.com/js/common_dll/sspa.dll.js",
-          "https://static.253.com/js/common_dll/react.dll.js",
-          "https://static.253.com/js/common_dll/react_redux.dll.js",
-          "https://static.253.com/js/common_dll/common.dll.js"
-        ]
-      }
+        dlls: [],
+      },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new FriendlyErrorsWebpackPlugin()
+    new FriendlyErrorsWebpackPlugin(),
   ],
 
   devServer: {
     clientLogLevel: "warning",
-    contentBase: path.join(__dirname, `../dist`),
+    contentBase: path.join(__dirname, "../dist"),
     historyApiFallback: true,
-    inline: true,
-    open: AppConfig.autoOpen || false,
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
     },
+    open: AppConfig.autoOpen || false,
     hot: true,
     quiet: true,
-    noInfo: false,
+    noInfo: true,
     overlay: {
-      errors: true
+      errors: true,
     },
     host: "0.0.0.0",
     port: AppConfig.port,
-    proxy: AppConfig.proxy || {}
-  }
+    proxy: AppConfig.proxy || {},
+  },
 };
+
 module.exports = merge(webpackConfigBase, webpackConfigDev);
 
 console.log(`${chalk.green("Run address：")}${chalk.blue("http://localhost:%s")}`, AppConfig.port);

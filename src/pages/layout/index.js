@@ -1,14 +1,22 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import routers from "@/router";
 import Menu from "./menu";
-import style from "./layout.less";
-class Layout extends Component {
-  render() {
-    return (
-      <div className={style.w_layout}>
+const Layout = () => {
+  return (
+    <div className="childapp_content">
+      <BrowserRouter basename={process.env.baseName}>
         <Menu />
-        <div className={style.w_content}>{this.props.children}</div>
-      </div>
-    );
-  }
-}
+        <div className="wrap_content">
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/home" />} />
+            {routers.map((item) => {
+              return <Route component={item.component} path={item.path} key={item.name} exact={item.exact || false} />;
+            })}
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
 export default Layout;
